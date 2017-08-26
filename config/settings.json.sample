@@ -1,0 +1,15 @@
+{
+  "service": {
+    "port": 3000
+  },
+  "apiTargets": [
+    {
+      "name": "contosoapi",
+      "proxyTarget": "https://api.contoso.com/"
+    },
+    {
+      "name": "acmeapi",
+      "proxyTarget": "https://api.acme.com/"
+    }
+  ]
+}

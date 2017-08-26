@@ -1,0 +1,12 @@
+{
+  "name": "suez",
+  "version": "1.0.0",
+  "description": "Configurable reverse proxy for accessing external APIs.",
+  "main": "app.js",
+  "author": "Adrian Png <adrian.png@fuzziebrain.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "http-proxy-middleware": "^0.17.3"
+  }
+}
