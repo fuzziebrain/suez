@@ -84,3 +84,12 @@ l_response := apex_web_service.make_rest_request(
       )
 );
 ```
+
+## Known Issues
+1. If the subdomain of `localhost` is unresolvable, add it to the hosts file,
+for example:
+```bash
+# For Linux: /etc/hosts
+# For Windows: %SystemRoot%\System32\drivers\etc\hosts
+127.0.0.1   localhost contosoapi.localhost acmeapi.localhost
+```
