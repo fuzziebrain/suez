@@ -21,7 +21,7 @@ services and an APEX application.
 ## Installation and Deployment
 *The following instructions are based on a CentOS 7 environment as recommended
 in the [OXAR](https://github.com/OraOpenSource/OXAR) project. Please adapt based
-on the operating system available to you*
+on the operating system available to you.*
 1. In the destination directory, e.g. `/opt`, clone the project.
 ```bash
 $ git clone https://github.com/fuzziebrain/suez.git
@@ -39,7 +39,7 @@ Please see the [quick start](http://pm2.keymetrics.io/docs/usage/quick-start/)
 guide for more information.
 
 ## Configuration
-A sample configuration file is [provided](../blob/master/config/settings.json.sample)
+A sample configuration file is [provided](../master/config/settings.json.sample)
 and shown below:
 ```json
 {
