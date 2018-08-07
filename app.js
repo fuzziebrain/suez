@@ -12,6 +12,7 @@ app.use('/', proxy(
     changeOrigin: true,
     router: function(req) {
       var routeName = req.hostname.split('.')[0];
+      console.log(`routeName: ${routeName}`);
 
       var proxyTarget = config.apiTargets.find(
         function(apiTarget) {
@@ -19,6 +20,8 @@ app.use('/', proxy(
         },
         routeName
       ).proxyTarget;
+
+      console.log(`${proxyTarget}`);
 
       return proxyTarget;
     }
