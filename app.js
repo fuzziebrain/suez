@@ -29,4 +29,4 @@ app.use('/', proxy(
 ));
 
 // app.listen(config.service.port, '127.0.0.1');
-app.listen(config.service.port, '127.0.0.1');
+app.listen(config.service.port);
