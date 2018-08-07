@@ -6,6 +6,11 @@ var app = express();
 
 var config = require('./config/settings.json');
 
+
+config.docker = config.docker == undefined ? false : config.docker;
+config.listenHost = config.docker ? '' : '127.0.0.1';
+console.log(`${config.listenHost}`);
+
 app.use('/', proxy(
   {
     target: 'http://localhost/',
@@ -29,4 +34,4 @@ app.use('/', proxy(
 ));
 
 // app.listen(config.service.port, '127.0.0.1');
-app.listen(config.service.port);
+app.listen(config.service.port, config.listenHost);
