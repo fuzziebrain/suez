@@ -12,7 +12,9 @@ process.argv.forEach(function (val, index, array) {
 
 // *** Docker specific settings ***
 // If run like "node app.js docker" then it will trigger the app to be run in docker mode
-config.docker = process.argv[2] == undefined ? false : true;
+// config.docker = process.argv[2] == undefined ? false : true;
+// console.log(`process.env.DOCKER: ${process.env.DOCKER}`);
+config.docker = process.env.DOCKER == undefined ? false : true;
 console.log(`config.docker: ${config.docker}`);
 // If in docker mode then need to allow listen from all IPs (not just localhost)
 config.listenHost = config.docker ? '' : '127.0.0.1';
