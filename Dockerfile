@@ -1,17 +1,24 @@
 # Original source from https://hub.docker.com/_/node/
-FROM node:alpine
-MAINTAINER Martin DSouza <martin@talkapex.com>
+FROM keymetrics/pm2:latest-alpine
+LABEL maintainer="Martin DSouza <martin@talkapex.com>"
 
 
-# ENV TZ="GMT" \
+# WATCH: If true, will watch for changes in settings.json and restart the node.js app
+ENV WATCH="false"
+
 WORKDIR /app
 USER root
 RUN apk add \
   git && \
   chmod 777 /app
 
-  
 USER node
+
+# For development
+# ENV TZ="GMT" \
+# RUN cd suez && \
+# VOLUME ["/app/suez"]
+
 # RUN TODO RESTORE git clone https://github.com/fuzziebrain/suez.git && \
 RUN git clone https://github.com/martindsouza/suez.git && \
   cd suez && \
@@ -25,9 +32,4 @@ VOLUME ["/app/suez/config"]
 EXPOSE 3000
 
 # Enable this if you want the container to permanently run
-# CMD ["/bin/sh"]
-CMD node /app/suez/app.js docker
-
-# ENTRYPOINT pm2 start suez/app.js -- --docker --watch
-# CMD ["run"]
-# pm2 start suez/app.js --watch
+CMD ["/app/suez/docker-scripts/launch-suez.sh"]
