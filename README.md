@@ -1,5 +1,20 @@
-# Suez
-## Introduction
+<!-- TOC -->
+
+- [Introduction](#introduction)
+- [Software Requirements](#software-requirements)
+- [Installation and Deployment](#installation-and-deployment)
+  - [Deployment](#deployment)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [Known Issues](#known-issues)
+- [Docker Support](#docker-support)
+  - [Get Docker image](#get-docker-image)
+  - [Run Container](#run-container)
+  - [Container Parameters](#container-parameters)
+
+<!-- /TOC -->
+
+# Introduction
 Suez is a simple [Nodejs](https://nodejs.org/) application for proxying to web
 resources such as RESTful web services. While accessing web resources over a
 secure transport layer is strongly encouraged, certain software and budget
@@ -15,10 +30,13 @@ SSL certificates.
 To circumvent this limitation, Suez acts as a bridge between secured web
 services and an APEX application.
 
-## Software Requirements
+# Software Requirements
 * Node.js(r) - should run on both LTS and non-LTS versions
 
-## Installation and Deployment
+# Installation and Deployment
+
+_Note see [Docker Support](#docker-support) if you want to use SUEZ's docker container instead._
+
 *The following instructions are based on a CentOS 7 environment as recommended
 in the [OXAR](https://github.com/OraOpenSource/OXAR) project. Please adapt based
 on the operating system available to you.*
@@ -33,12 +51,12 @@ the configuration section for details.
 $ node /opt/suez/app.js
 ```
 
-### Deployment
+## Deployment
 Using [PM2](http://pm2.keymetrics.io/) to run Suez as a service is encouraged.
 Please see the [quick start](http://pm2.keymetrics.io/docs/usage/quick-start/)
 guide for more information.
 
-## Configuration
+# Configuration
 A sample configuration file is [provided](../master/config/settings.json.sample)
 and shown below:
 ```json
@@ -66,7 +84,7 @@ To configure Suez, make a copy of this file, change the service port number, if
 necessary, and then add `apiTargets` as required. Save this file and name it
 `settings.json`.
 
-## Usage
+# Usage
 The following example is based on the sample settings file provided.
 
 Suppose the developer would like to access the stock list through the Contoso
@@ -85,7 +103,7 @@ l_response := apex_web_service.make_rest_request(
 );
 ```
 
-## Known Issues
+# Known Issues
 1. If the subdomain of `localhost` is unresolvable, add it to the hosts file,
 for example:
 ```bash
@@ -93,3 +111,35 @@ for example:
 # For Windows: %SystemRoot%\System32\drivers\etc\hosts
 127.0.0.1   localhost contosoapi.localhost acmeapi.localhost
 ```
+
+# Docker Support
+
+If you don't want to install anything you can SUEZ has a docker image.
+
+## Get Docker image
+
+`docker pull martindsouza/amazon-ask-cli`
+
+## Run Container
+
+```bash
+docker run -it -d \
+  --name=suez \
+  -v ~/Documents/GitHub/martindsouza/suez/config:/app/suez/config \
+  -p 3000:3000 \
+  suez:latest
+
+# Stopping immediately using the -t 1
+docker stop -t 1 suez
+
+docker start suez
+```
+
+## Container Parameters
+
+Parameter | Description
+--- | ---
+`-e WATCH` | Optional: setting this to `WATCH=true` will restart the node service each time `settings.json` is changed. This is recommended for active development environments
+`--name` | Optional: Name to label container
+`-v <local dir>:/app/suez/config` | Location where `settings.json` is stored
+`-p 8888:3000`  | Suez uses port 3000 internally and this must be used, map it accordingly to your system. In this case port 8888 will be mapped to the container's port 3000.
