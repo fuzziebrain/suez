@@ -6,6 +6,18 @@ var app = express();
 
 var config = require('./config/settings.json');
 
+// *** Docker specific settings ***
+// If run like "node app.js docker" then it will trigger the app to be run in docker mode
+config.docker = process.env.DOCKER == undefined ? false : true;
+console.log(`config.docker: ${config.docker}`);
+// If in docker mode then need to allow listen from all IPs (not just localhost)
+config.listenHost = config.docker ? '' : '127.0.0.1';
+console.log(`config.listenHost: ${config.listenHost}`);
+
+// Docker relies on port 3000 (exposed port)
+config.service.port = config.docker ? 3000 : config.service.port;
+console.log(`config.service.port: ${config.service.port}`);
+
 app.use('/', proxy(
   {
     target: 'http://localhost/',
@@ -25,4 +37,4 @@ app.use('/', proxy(
   }
 ));
 
-app.listen(config.service.port, '127.0.0.1');
+app.listen(config.service.port, config.listenHost);
