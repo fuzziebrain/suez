@@ -106,11 +106,12 @@ If you don't want to install anything you can SUEZ has a docker image.
 ## Run Container
 
 ```bash
+# Note my settings.json is stored in ~/docker/suez
 docker run -it -d \
   --name=suez \
-  -v ~/Documents/GitHub/martindsouza/suez/config:/app/suez/config \
+  -v ~/docker/suez:/app/suez/config \
   -p 3000:3000 \
-  suez:latest
+  fuzziebrain/suez:latest
 
 # Stopping immediately using the -t 1
 docker stop -t 1 suez
@@ -122,7 +123,7 @@ docker start suez
 
 Parameter | Description
 --- | ---
-`-e WATCH` | Optional: setting this to `WATCH=true` will restart the node service each time `settings.json` is changed. This is recommended for active development environments
+`-e WATCH=true` | Optional: setting this to `WATCH=true` will restart the node service each time `settings.json` is changed. This is recommended for active development environments
 `--name` | Optional: Name to label container
 `-v <local dir>:/app/suez/config` | Location where `settings.json` is stored
 `-p 8888:3000`  | Suez uses port 3000 internally and this must be used, map it accordingly to your system. In this case port 8888 will be mapped to the container's port 3000.
