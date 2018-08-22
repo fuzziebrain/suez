@@ -97,7 +97,7 @@ l_response := apex_web_service.make_rest_request(
 
 # Docker Support
 
-If you don't want to install anything you can SUEZ has a docker image.
+If you don't want to install anything you can use the [SUEZ docker image](https://hub.docker.com/r/fuzziebrain/suez/).
 
 ## Get Docker image
 
@@ -110,7 +110,7 @@ If you don't want to install anything you can SUEZ has a docker image.
 docker run -it -d \
   --name=suez \
   -v ~/docker/suez:/app/suez/config \
-  -p 3000:3000 \
+  -p 8888:3000 \
   fuzziebrain/suez:latest
 
 # Stopping immediately using the -t 1
